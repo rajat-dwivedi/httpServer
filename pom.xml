@@ -20,6 +20,17 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.19.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version> <!-- or latest -->
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version> <!-- Or latest stable version -->
+        </dependency>
+
     </dependencies>
 
     <properties>
