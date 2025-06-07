@@ -30,6 +30,13 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.14</version> <!-- Or latest stable version -->
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version> <!-- Use latest stable version -->
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
