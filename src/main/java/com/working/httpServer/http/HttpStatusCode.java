@@ -1,0 +1,19 @@
+package com.working.httpServer.http;
+
+public enum HttpStatusCode {
+    /*CLIENT_ERRORS*/
+    CLIENT_ERROR_400_BAD_REQUEST(400, "BAD_REQUEST"),
+    CLIENT_ERROR_401_METHOD_NOT_ALLOWED(401, "METHOD_NOT_ALLOWED"),
+    CLIENT_ERROR_414_URI_TOO_LONG(414, "URI_TOO_LONG"),
+    /*SERVER_ERRORS*/
+    SERVER_ERROR_500_INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR"),
+    SERVER_ERROR_501_NOT_IMPLEMENTED(501, "NOT_IMPLEMENTED");
+
+    public final int STATUS_CODE;
+    public final String MESSAGE;
+
+    HttpStatusCode(int STATUS_CODE, String MESSAGE) {
+        this.STATUS_CODE = STATUS_CODE;
+        this.MESSAGE = MESSAGE;
+    }
+}
