@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+//singleton class
 public class ConfigManager {
     private static ConfigManager myConfigManager;
     private static Configration myCurrentConfig;

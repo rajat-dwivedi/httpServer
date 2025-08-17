@@ -14,9 +14,13 @@ public class HttpParser {
     private static final int CR = 0x0D;//13
     private static final int LF = 0x0A;//10
     public HttpRequest parseHttpReequest(InputStream inputStream){
-        InputStreamReader reader = new InputStreamReader(InputStream, StandardCharsets.US_ASCII);
+        InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.US_ASCII);
         HttpRequest request = new HttpRequest();
-        parseRequestLine(reader,request);
+        try {
+            parseRequestLine(reader,request);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         parseHeader(reader,request);
         parseBody(reader,request);
         return request;
@@ -30,13 +34,35 @@ public class HttpParser {
     }
 
     private void parseRequestLine(InputStreamReader reader, HttpRequest request) throws IOException {
-        int _byte;
-        while((_byte==reader.read())>=0){
+        boolean methodParsed = false;
+        boolean requestTargetParsed = false;
+
+        int _byte = 0;
+        StringBuilder processingDataBuffer = new StringBuilder();
+        while((_byte=reader.read())>=0){
+            //reaeding the carriage return (CR) and line feed (LF)
             if(_byte==CR){
                 _byte = reader.read();
                 if(_byte==LF){
-
+                    LOGGER.debug("request line version to process : {}", processingDataBuffer.toString() );
+                    return;
                 }
+            }
+
+            //reading the spaces
+            if(_byte==SP){
+                //process the previous data
+                if(!methodParsed){
+                    LOGGER.debug("request line METHOD to process : {}", processingDataBuffer.toString() );
+                    request.setMethod(processingDataBuffer.toString());
+                    methodParsed = true;
+                }else if(!requestTargetParsed){
+                    LOGGER.debug("request line REQ TARGET to process : {}", processingDataBuffer.toString() );
+                    requestTargetParsed = true;
+                }
+                processingDataBuffer.delete(0,processingDataBuffer.length());
+            }else{
+                processingDataBuffer.append((char)_byte);
             }
         }
     }

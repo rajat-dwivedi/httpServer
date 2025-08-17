@@ -26,8 +26,11 @@ public class ServerListnerThread extends Thread{
     @Override
     public void run() {
         try {
+            //is successfully bound to a port (i.e. ready to listen for incoming connections). 
             while(serverSocket.isBound() && !serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
+
+                //.getInetAddress(): This method returns the IP address of the remote client that just connected.
                 LOGGER.info("Connection accepted " + socket.getInetAddress());
 
                 HttpConnectionWorkerThread httpConnectionWorkerThread = new HttpConnectionWorkerThread(socket);

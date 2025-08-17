@@ -17,7 +17,7 @@ public class HttpServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpServer.class);
     public static void main(String[] args) {
 
-        LOGGER.info("server starting");
+        LOGGER.info("server starting"); 
         ConfigManager.getInstance().loadConfig("src/main/resources/http.json");
         Configration conf = ConfigManager.getInstance().getCurrentConfig();
         LOGGER.info("current port "+ conf.getPort());

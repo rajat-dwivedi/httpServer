@@ -19,6 +19,7 @@ public class HttpConnectionWorkerThread extends Thread{
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try{
+            //InputStreamReader converts raw bytes into characters.
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
 
