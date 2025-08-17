@@ -17,14 +17,15 @@ public class HttpServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpServer.class);
     public static void main(String[] args) {
 
-        LOGGER.info("server starting"); 
+        LOGGER.info("server starting");  
+        //getting the singleTon instance of ConfigManager 
         ConfigManager.getInstance().loadConfig("src/main/resources/http.json");
         Configration conf = ConfigManager.getInstance().getCurrentConfig();
+
         LOGGER.info("current port "+ conf.getPort());
         LOGGER.info("current webroot "+conf.getWebroot());
-//        System.out.println("Current port "+conf.getPort());
-//        System.out.println("Current webRoot "+conf.getWebroot());
 
+        //tring to use multithreaded
         try {
             ServerListnerThread serverListnerThread = new ServerListnerThread(conf.getWebroot(), conf.getPort());
             serverListnerThread.start();
