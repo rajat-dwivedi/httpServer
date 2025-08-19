@@ -11,9 +11,11 @@ import java.net.Socket;
 public class HttpConnectionWorkerThread extends Thread{
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpConnectionWorkerThread.class);
     Socket socket;
+
     public HttpConnectionWorkerThread(Socket socket){
         this.socket = socket;
     }
+
     @Override
     public void run() {
         InputStream inputStream = null;
@@ -23,19 +25,13 @@ public class HttpConnectionWorkerThread extends Thread{
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
 
-            /*
-            * reading what we receive as a reqeust from the server
-            * */
             int _byte;
-            while((_byte=inputStream.read())>=0){
-                System.out.print((char) _byte);
+
+            while((_byte = inputStream.read())>=0){
+                System.out.println((char)_byte);
             }
 
-            //we would read
-
-            //we would write
-
-            // HTML content
+      
             String html = "<html><body><h1>Hello, World! This is the second hard coded dumb output</h1></body></html>";
             final String CRLF = "\r\n"; // Line separator in HTTP
             // Build HTTP response
@@ -53,11 +49,6 @@ public class HttpConnectionWorkerThread extends Thread{
             outputStream.close();
             socket.close();
 
-            try {
-                sleep(5000);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
             LOGGER.info("connection processing finished");
         }catch (Exception e){
             e.printStackTrace();
