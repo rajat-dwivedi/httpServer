@@ -43,7 +43,7 @@ public class ServerListnerThread extends Thread{
                 HttpConnectionWorkerThread httpConnectionWorkerThread = new HttpConnectionWorkerThread(socket);
                 // Start the worker thread to process the client request independently
                 httpConnectionWorkerThread.start();
-            
+             
             }
             serverSocket.close();
         } catch (IOException e) {

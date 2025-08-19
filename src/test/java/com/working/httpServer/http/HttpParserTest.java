@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HttpParserTest {
@@ -23,15 +25,27 @@ class HttpParserTest {
 
     @Test
     void parseHttpRequest() {
-       HttpRequest request = httpParser.parseHttpReequest(generateValidGETTestCase());
+       HttpRequest request = null;
+       try {
+        request = httpParser.parseHttpReequest(generateValidGETTestCase());
+       } catch (HttpParsingException e) {
+        fail();
+       }
 
+       assertNotNull(request);
        assertEquals(request.getMethod(), HttpMethod.GET);
+       assertEquals(request.getRequestTarget(),"/");
     }
 
 //    @Test
 //    void parseHttpRequestBadMethod() {
-//        HttpRequest request = httpParser.parseHttpReequest(generateBadTestCaseMethod1());
-//
+//        try {
+//         HttpRequest request = httpParser.parseHttpReequest(generateBadTestCaseMethod1());
+//         fail();
+//        } catch (HttpParsingException e) {
+//         // TODO Auto-generated catch block
+//         assertEquals(e.getErrorCode(), HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
+//        }
 //    }
 
     private InputStream generateValidGETTestCase(){
@@ -58,7 +72,7 @@ class HttpParserTest {
     }
 
     private InputStream generateBadTestCaseMethod1(){
-        String rawData = "GE / HTTP/1.1" + "\r\n" +
+        String rawData = "GET / HTTP/1.1" + "\r\n" +
                 "Host: localhost:8080" + "\r\n" +
                 "Accept-Encoding: gzip, deflate, br, zstd" + "\r\n" +
                 "Accept-Language: en-US,en;q=0.9,hi;q=0.8" + "\r\n" +"\r\n";
